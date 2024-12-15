@@ -1,0 +1,7 @@
+:root{
+    --gbqs-colors-grid-light-grey-1: #2b2b2b;
+    --gbqs-colors-grid-light-grey-2: rgba(51, 51, 51, 0.4);
+    --gbqs-colors-grid-light-grey-3: rgba(51, 51, 51, 1);
+
+    --gbqs-metrics-grid-25: 25;
+}
