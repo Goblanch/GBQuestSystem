@@ -16,13 +16,17 @@ namespace GBQuestSys.Windows
         }
 
         private void CreateNode(){
-            QSNode node = new QSNode();
+            QSEditableNode node = new QSEditableNode();
+            node.Initialize();
+            node.Draw();
             AddElement(node);
         }
 
         private void AddManipulators(){
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new ContentZoomer());   
+            this.AddManipulator(new SelectionDragger());
+            this.AddManipulator(new RectangleSelector());
         }
 
         private void AddGridBackGround(){

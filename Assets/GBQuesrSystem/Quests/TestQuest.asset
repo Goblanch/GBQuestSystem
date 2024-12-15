@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6588e57b850878041b5a17d9b7672045, type: 3}
+  m_Name: TestQuest
+  m_EditorClassIdentifier: 
+  initialDialogue:
+  - phrase: Hello
+    dialogueEmitter: 0
+  - phrase: Hello player
+    dialogueEmitter: 1
+  finalDialogue:
+  - phrase: Nice!
+    dialogueEmitter: 0
+  - phrase: This was a test
+    dialogueEmitter: 1

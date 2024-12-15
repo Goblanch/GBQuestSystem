@@ -7,6 +7,7 @@ namespace GBQuestSys.Data{
         NPC
     }
 
+    [System.Serializable]
     public class Dialogue{
         public string phrase;
         public Characters dialogueEmitter;
