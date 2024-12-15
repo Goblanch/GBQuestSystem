@@ -1,10 +1,7 @@
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 using UnityEditor;
-using Unity.VisualScripting;
+using GBQuestSys.Elements;
 
 namespace GBQuestSys.Windows
 {
@@ -13,7 +10,14 @@ namespace GBQuestSys.Windows
         public GBQuestGraphView(){
             AddManipulators();
             AddGridBackGround();
+            // Just for test
+            CreateNode();
             AddStyles();
+        }
+
+        private void CreateNode(){
+            QSNode node = new QSNode();
+            AddElement(node);
         }
 
         private void AddManipulators(){
