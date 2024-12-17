@@ -1,6 +1,7 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.UIElements;
 using UnityEditor;
+using UnityEngine;
 using GBQuestSys.Elements;
 
 namespace GBQuestSys.Windows
@@ -10,16 +11,14 @@ namespace GBQuestSys.Windows
         public GBQuestGraphView(){
             AddManipulators();
             AddGridBackGround();
-            // Just for test
-            CreateNode();
             AddStyles();
         }
 
-        private void CreateNode(){
-            QSEditableNode node = new QSEditableNode();
-            node.Initialize();
+        private QSNode CreateNode(Vector2 position){
+            QSNode node = new QSNode();
+            node.Initialize(position);
             node.Draw();
-            AddElement(node);
+            return node;
         }
 
         private void AddManipulators(){
@@ -27,6 +26,15 @@ namespace GBQuestSys.Windows
             this.AddManipulator(new ContentZoomer());   
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
+            this.AddManipulator(CreateNodeContextMenu());
+        }
+
+        private IManipulator CreateNodeContextMenu(){
+            ContextualMenuManipulator contextualMenuManipulator = new ContextualMenuManipulator(
+                menuEvent => menuEvent.menu.AppendAction("Add Node", actionEvent => AddElement(CreateNode(actionEvent.eventInfo.localMousePosition)))
+            );
+
+            return contextualMenuManipulator;
         }
 
         private void AddGridBackGround(){
@@ -36,8 +44,10 @@ namespace GBQuestSys.Windows
         }
 
         private void AddStyles(){
-            StyleSheet styleSheet = (StyleSheet) EditorGUIUtility.Load("GBQuestSystem/QuestGraphStyles.uss");
-            styleSheets.Add(styleSheet);
+            StyleSheet graphStyleSheet = (StyleSheet) EditorGUIUtility.Load("GBQuestSystem/QuestGraphStyles.uss");
+            StyleSheet nodeStyleSheet = (StyleSheet) EditorGUIUtility.Load("GBQuestSystem/GBQuestSysNodeStyles.uss");
+            styleSheets.Add(graphStyleSheet);
+            styleSheets.Add(nodeStyleSheet);
         }
     }
 

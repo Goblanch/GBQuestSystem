@@ -13,16 +13,28 @@ namespace GBQuestSys.Elements
         public string QuestName {get; set;}
         public GBQuest linkedQuest;
 
-        public void Initialize(){
+        public void Initialize(Vector2 position){
             QuestName = "QuestName";
-            //questData = ScriptableObject.CreateInstance<GBQuest>();
-            //questData.Initialize();
+            
+            SetPosition(new Rect(position, Vector2.zero));
+
+            AddNodeStyles();
+        }
+
+        private void AddNodeStyles(){
+            titleContainer.AddToClassList("ds-node__title-container");
+            mainContainer.AddToClassList("ds-node__main-container");
+            extensionContainer.AddToClassList("ds-node__extension-container");
+            inputContainer.AddToClassList("ds-node__input-container");
+            outputContainer.AddToClassList("ds-node__output-container");
         }
 
         public void Draw(){
             TextField questNameTextField = new TextField(){
                 value = QuestName
             };
+
+            questNameTextField.AddToClassList("ds-node__textfield");  
 
             titleContainer.Insert(0, questNameTextField);
 
@@ -44,40 +56,9 @@ namespace GBQuestSys.Elements
             ObjectField questField = new ObjectField("Quest"){
                 objectType = typeof(GBQuest),
             };
-            questField.RegisterValueChangedCallback(evt =>{
-                linkedQuest = evt.newValue as GBQuest;
-                if(linkedQuest != null){
-                    UpdateNodeFromQuest();
-                }
-            });
-
-            titleContainer.Add(questField);
-
-            Label dialogueLabel = new Label("Dialogues:");
-            extensionContainer.Add(dialogueLabel);
+            mainContainer.Add(questField);
         }
 
-        protected virtual void UpdateNodeFromQuest(){
-            foreach(var element in extensionContainer.Children()){
-                element.RemoveFromHierarchy();
-            }
-
-            if(linkedQuest.initialDialogue != null){
-                foreach(var dialogue in linkedQuest.initialDialogue){
-                    extensionContainer.Add(new Label($"{dialogue.dialogueEmitter}: {dialogue.phrase}"));
-
-                }
-            }
-
-            if(linkedQuest.finalDialogue != null){
-                foreach(var dialogue in linkedQuest.finalDialogue){
-                    extensionContainer.Add(new Label($"{dialogue.dialogueEmitter}: {dialogue.phrase}"));
-                    
-                }
-            }
-
-            RefreshExpandedState();
-        }
     }
 }
 
