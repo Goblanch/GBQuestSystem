@@ -1,8 +1,11 @@
 using UnityEditor.Experimental.GraphView;
+using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEngine;
 using GBQuestSys.Elements;
+using System.Runtime.Remoting.Messaging;
+using GBQuestSys.Utils;
 
 namespace GBQuestSys.Windows
 {
@@ -21,6 +24,19 @@ namespace GBQuestSys.Windows
             return node;
         }
 
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter){
+            List<Port> compatiblePorts = new List<Port>();
+
+            ports.ForEach(port => {
+                if(startPort == port || startPort.node == port.node || startPort.direction == port.direction) return;
+                compatiblePorts.Add(port);
+            });
+
+            return compatiblePorts;
+        }
+
+        #region MANIPULATORS
+
         private void AddManipulators(){
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new ContentZoomer());   
@@ -37,6 +53,10 @@ namespace GBQuestSys.Windows
             return contextualMenuManipulator;
         }
 
+        #endregion
+
+        #region STYLES
+
         private void AddGridBackGround(){
             GridBackground gridBackground = new GridBackground();
             gridBackground.StretchToParentSize();
@@ -44,11 +64,13 @@ namespace GBQuestSys.Windows
         }
 
         private void AddStyles(){
-            StyleSheet graphStyleSheet = (StyleSheet) EditorGUIUtility.Load("GBQuestSystem/QuestGraphStyles.uss");
-            StyleSheet nodeStyleSheet = (StyleSheet) EditorGUIUtility.Load("GBQuestSystem/GBQuestSysNodeStyles.uss");
-            styleSheets.Add(graphStyleSheet);
-            styleSheets.Add(nodeStyleSheet);
+            this.AddStyleSheets(
+                "GBQuestSystem/QuestGraphStyles.uss",
+                "GBQuestSystem/GBQuestSysNodeStyles.uss"
+            );
         }
+
+        #endregion
     }
 
 }

@@ -5,6 +5,8 @@ using UnityEditor.UIElements;
 
 namespace GBQuestSys.Windows
 {
+    using GBQuestSys.Utils;
+
     public class GBQuestGraphWindow : EditorWindow
     {
         [MenuItem("Window/GBQuestSystem/Quest Graph")]
@@ -24,8 +26,7 @@ namespace GBQuestSys.Windows
         }
 
         private void AddStyles(){
-            StyleSheet styleSheet = (StyleSheet) EditorGUIUtility.Load("GBQuestSystem/GBQuestSysVariables.uss");
-            rootVisualElement.styleSheets.Add(styleSheet);
+            rootVisualElement.AddStyleSheets("GBQuestSystem/GBQuestSysVariables.uss");
         }
     }
 }

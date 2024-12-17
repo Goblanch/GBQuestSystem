@@ -19,6 +19,7 @@ namespace GBQuestSys.Elements
             SetPosition(new Rect(position, Vector2.zero));
 
             AddNodeStyles();
+
         }
 
         private void AddNodeStyles(){
@@ -28,6 +29,8 @@ namespace GBQuestSys.Elements
             inputContainer.AddToClassList("ds-node__input-container");
             outputContainer.AddToClassList("ds-node__output-container");
         }
+
+        #region DRAW NODE
 
         public void Draw(){
             TextField questNameTextField = new TextField(){
@@ -48,7 +51,7 @@ namespace GBQuestSys.Elements
             Port inputPort = this.CreatePort("Previous Quest", Orientation.Horizontal, Direction.Input, Port.Capacity.Multi);
             inputContainer.Add(inputPort);
 
-            Port outputPort = this.CreatePort("Next Quest", Orientation.Horizontal, Direction.Output, Port.Capacity.Single);
+            Port outputPort = this.CreatePort("Next Quest", Orientation.Horizontal, Direction.Output, Port.Capacity.Multi);
             outputContainer.Add(outputPort);
         }
 
@@ -59,6 +62,7 @@ namespace GBQuestSys.Elements
             mainContainer.Add(questField);
         }
 
+        #endregion
     }
 }
 
